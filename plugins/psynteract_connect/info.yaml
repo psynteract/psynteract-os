@@ -1,0 +1,62 @@
+﻿description: Psynteract interface for OpenSesame
+version: 0.5.0
+author: "Felix Henninger & Pascal J. Kieslich"
+url: "https://github.com/felixhenninger/psynteract-os"
+category: "Psynteract"
+date: "October 21, 2015"
+controls:
+-
+    type: "line_edit"
+    var: "server"
+    label: "Psynteract server:"
+    tooltip: "Specify the URL of the server (including user & password)."
+	min_width: 200
+-
+    type: "line_edit"
+    var: "db_name"
+    label: "Database:"
+    tooltip: "Specify the name of the database containing the psynteract backend."
+-
+    type: "combobox"
+    var: "design"
+    label: "Design:"
+    tooltip: "Select which design should be used in the current experiment."
+	options:
+    - "perfect_stranger"
+    - "stranger"
+-
+    type: "spinbox"
+    var: "group_size"
+    label: "Group size:"
+    min_val: 2
+    max_val: 25
+    suffix: ""
+    tooltip: "Specify the group size."
+-
+    type: "line_edit"
+    var: "roles"
+    label: "Roles:"
+    tooltip: "Specify the roles in the group (separated by comma) - one for each group member. Leave empty if there are no roles."
+-
+    type: "spinbox"
+    var: "groupings_needed"
+    label: "Groupings needed:"
+    min_val: 1
+    max_val: 25
+    suffix: ""
+    tooltip: "Specify the number of groupings needed."
+-
+    type: "checkbox"
+    var: "identical_rseed"
+    label: "Identical random seed for all clients within the same session"
+    tooltip: "Select to use identical random seed for all clients in one session."
+-
+    type: "checkbox"
+    var: "display_messages"
+    label: "Display message while connecting and waiting for the session to start"
+    tooltip: "Select to display message with current status while connecting and waiting for the session to start."
+-
+    type: "checkbox"
+    var: "offline"
+    label: "Offline test mode (no connection to session is established, no data will be pushed or received)"
+    tooltip: "Select to offline test mode."

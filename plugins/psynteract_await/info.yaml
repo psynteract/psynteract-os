@@ -1,0 +1,15 @@
+﻿description: Psynteract interface for OpenSesame
+version: 0.5.0
+author: "Felix Henninger & Pascal J. Kieslich"
+url: "https://github.com/felixhenninger/psynteract-os"
+category: "Psynteract"
+date: "October 21, 2015"
+controls:
+-
+    type: "spinbox"
+    var: "additional_wait"
+    label: "Additional wait time:"
+    min_val: 1
+    max_val: 60000
+    suffix: " ms"
+    tooltip: "Specify minimum time that is waited after the last client has reached the current await item."
