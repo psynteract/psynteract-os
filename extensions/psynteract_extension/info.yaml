@@ -1,0 +1,13 @@
+﻿author: Felix Henniner & Pascal J. Kieslich
+description: Install Psynteract backend
+icon: insert-link
+label: Install psynteract
+priority: -2
+menu:
+  index: -1
+  separator_after: false
+  separator_before: false
+  submenu: Psynteract
+tooltip: Install psynteract backend
+url: https://github.com/felixhenninger/psynteract-os
+version: 0.5.0
