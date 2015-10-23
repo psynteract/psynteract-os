@@ -1,4 +1,4 @@
-# Notice: Builds include vendorized libraries
+# Notice: Builds include vendorized libraries
 
 Builds of psynteract include several libraries to ease installation. These are:
 - [*PyCouchdb* by Andrey Antukh](https://pycouchdb.readthedocs.org/)
@@ -7,7 +7,7 @@ Builds of psynteract include several libraries to ease installation. These are:
 
 ## Licenses
 
-### PyCouchdb License
+### PyCouchdb License
 
 Copyright (c) 2015 Andrey Antukh <niwi@niwi.be>
 
