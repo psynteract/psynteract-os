@@ -1,7 +1,7 @@
 ﻿description: Psynteract interface for OpenSesame
 version: 0.5.0
 author: "Felix Henninger & Pascal J. Kieslich"
-url: "https://github.com/felixhenninger/psynteract-os"
+url: "https://github.com/psynteract/psynteract-os"
 category: "Psynteract"
 date: "October 21, 2015"
 controls:

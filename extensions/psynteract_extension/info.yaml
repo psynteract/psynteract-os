@@ -9,5 +9,5 @@ menu:
   separator_before: false
   submenu: Psynteract
 tooltip: Install psynteract backend
-url: https://github.com/felixhenninger/psynteract-os
+url: https://github.com/psynteract/psynteract-os
 version: 0.5.0
