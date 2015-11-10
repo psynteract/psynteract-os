@@ -19,7 +19,9 @@ class psynteract_await(item.item):
 		desc:
 			Resets plug-in to initial values.
 		"""
-		self.var.additional_wait = 1000
+		self.var.display_message = 'no'
+		self.var.waiting_message = ''
+		self.var.additional_wait = 1000	
 
 
 	def run(self):
@@ -33,6 +35,12 @@ class psynteract_await(item.item):
 			self.experiment._connection.doc['data']['os_status'][current_await]=1
 		
 		current_status = self.experiment._connection.doc['data']['os_status'][current_await]
+		
+		if self.var.display_message == 'yes':
+			from openexp.canvas import canvas
+			message_canvas= canvas(self.experiment)
+			message_canvas.text(self.var.waiting_message)
+			message_canvas.show()
 		
 		if self.experiment.var.offline == 'no':
 		
@@ -66,3 +74,32 @@ class qtpsynteract_await(psynteract_await, qtautoplugin):
 		
 		psynteract_await.__init__(self, name, experiment, script)
 		qtautoplugin.__init__(self, __file__)
+		self.custom_interactions()
+
+	def apply_edit_changes(self):
+
+		"""Applies the controls."""
+
+		if not qtautoplugin.apply_edit_changes(self) or self.lock:
+			return False
+		self.custom_interactions()
+		return True
+
+	def edit_widget(self):
+
+		"""Refreshes the controls."""
+
+		if self.lock:
+			return
+		self.lock = True
+		w = qtautoplugin.edit_widget(self)
+		self.custom_interactions()
+		self.lock = False
+		return w
+
+	def custom_interactions(self):
+
+		"""Activates the relevant controls and adjusts tooltips."""
+		
+		self.waiting_message_widget.setEnabled(self.var.display_message=='yes')
+	

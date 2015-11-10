@@ -22,6 +22,8 @@ class psynteract_communicate(item.item):
 		
 		self.var.auto_detect_variables = 'yes'
 		self.var.custom_selection = ''
+		self.var.display_message = 'no'
+		self.var.waiting_message = ''
 		self.var.additional_wait = 1000
 		self.var.own_var_as_test = 'yes'
 
@@ -58,6 +60,13 @@ class psynteract_communicate(item.item):
 			self.experiment._connection.doc['data']['os_status'][current_await]=1
 		
 		current_status = self.experiment._connection.doc['data']['os_status'][current_await]
+		
+		if self.var.display_message == 'yes':
+			from openexp.canvas import canvas
+			message_canvas= canvas(self.experiment)
+			message_canvas.text(self.var.waiting_message)
+			message_canvas.show()
+		
 		
 		if self.experiment.var.offline == 'no':
 		
@@ -141,4 +150,5 @@ class qtpsynteract_communicate(psynteract_communicate, qtautoplugin):
 		"""Activates the relevant controls and adjusts tooltips."""
 		
 		self.custom_variables_widget.setEnabled(self.var.auto_detect_variables=='no')
+		self.waiting_message_widget.setEnabled(self.var.display_message=='yes')
 	
