@@ -31,6 +31,10 @@ gulp.task('bundle', function() {
   gulp.src(['./plugins/**/*'])
     .pipe(gulp.dest('build/_output/plugins/'));
 
+  // Copy examples
+  gulp.src(['./examples/**/*'])
+    .pipe(gulp.dest('build/_output/examples/'));
+
   // Copy dependency files
   gulp.src('build/_dependencies/psynteract-py-master/psynteract/**/*')
     .pipe(gulp.dest('build/_output/extensions/psynteract_extension/psynteract'));
