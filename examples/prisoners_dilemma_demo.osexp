@@ -1,0 +1,152 @@
+---
+API: 2
+OpenSesame: 3.0.2
+Platform: nt
+---
+set width 1024
+set uniform_coordinates "yes"
+set title "New experiment"
+set synth_backend "legacy"
+set subject_parity "even"
+set subject_nr 0
+set start "experiment"
+set sampler_backend "legacy"
+set mouse_backend "xpyriment"
+set keyboard_backend "legacy"
+set height 768
+set foreground "black"
+set font_size 18
+set font_italic "no"
+set font_family "sans"
+set font_bold "no"
+set description "Default description"
+set coordinates "relative"
+set compensation 0
+set color_backend "legacy"
+set clock_backend "legacy"
+set canvas_backend "xpyriment"
+set bidi "no"
+set background "white"
+
+define psynteract_communicate communicate_decision
+	set waiting_message "waiting for partner..."
+	set own_var_as_test "yes"
+	set display_message "yes"
+	set description "Push data to server, wait for responses of other clients, and get their data."
+	set custom_selection "response_decision, subject_nr"
+	set auto_detect_variables "no"
+	set additional_wait 1000
+
+define keyboard_response decision
+	set timeout "infinite"
+	set flush "yes"
+	set duration "keypress"
+	set description "Collects keyboard responses"
+	set allowed_responses "a;b"
+
+define notepad description
+	__note__
+	This is just a rough demonstration
+	how a Prisoner's Dilemma Game could be implemented
+	in OpenSesame using the psynteract plug-ins.
+	__end__
+	set description "A simple notepad to document your experiment. This plug-in does nothing."
+
+define sequence experiment
+	set flush_keyboard "yes"
+	set description "Runs a number of items in sequence"
+	run description always
+	run psynteract_connect always
+	run instructions always
+	run wait_for_instructions always
+	run initialize_payout always
+	run repeat_rounds always
+
+define feedback feedback
+	set reset_variables "yes"
+	set duration "keypress"
+	set description "Provides feedback to the participant"
+	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="My ID: [subject_nr]<br />My Decision: [response_decision]<br /><br />Partner ID: [partner01_subject_nr]<br />Partner decision: [partner01_response_decision]<br /><br />My accumulated payout: [payout]" x=0 y=0 z_index=0
+	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="Press any key to continue" x=0 y=192 z_index=0
+	draw textline center=1 color=black font_bold=yes font_family=sans font_italic=no font_size=18 html=yes show_if=always text="Feedback (for testing purposes)" x=0 y=-256 z_index=0
+
+define inline_script initialize_payout
+	set description "Executes Python code"
+	set _run "var.payout=0"
+	set _prepare ""
+
+define sketchpad instructions
+	set duration "keypress"
+	set description "Displays stimuli"
+	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="In the following you will play 5 rounds.<br />Each round a new partner will be randomly assigned to you.<br /><br />Both you and your partner choose between two options: A and B.<br /><br />If you choose A and your partner chooses A, you both get 100.<br />If one person chooses A, the other B,<br />the person choosing A gets 0, the person choosing B gets 200.<br />If both choose B, both get 50.<br /><br />Press any key to continue." x=0 y=0 z_index=0
+	draw textline center=1 color=black font_bold=yes font_family=sans font_italic=no font_size=18 html=yes show_if=always text=Instructions x=0 y=-256 z_index=0
+
+define logger logger
+	set description "Logs experimental data"
+	set auto_log "yes"
+
+define sketchpad present_decision
+	set duration 0
+	set description "Displays stimuli"
+	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="Please choose between Option A and Option B.<br /><br />If you choose A and your partner chooses A, you both get 100.<br />If one person chooses A, the other B,<br />the person choosing A gets 0, the person choosing B gets 200.<br />If both choose B, both get 50.<br /><br />Option A: press a<br />Option B: press b" x=0 y=0 z_index=0
+	draw textline center=1 color=black font_bold=yes font_family=sans font_italic=no font_size=18 html=yes show_if=always text=Choice x=0 y=-256 z_index=0
+
+define psynteract_connect psynteract_connect
+	set server "http://localhost:5984/"
+	set offline "no"
+	set identical_rseed "no"
+	set groupings_needed 5
+	set group_size 2
+	set display_messages "yes"
+	set design "stranger"
+	set description "Setup connection with session."
+	set db_name "psynteract"
+
+define psynteract_reassign reassign
+	set description "Assign participant to next grouping."
+
+define loop repeat_rounds
+	set skip 0
+	set repeat 5
+	set order "random"
+	set offset "no"
+	set item "trial"
+	set description "Repeatedly runs another item"
+	set cycles 1
+	set column_order ""
+	set break_if "never"
+	run trial
+
+define sequence trial
+	set flush_keyboard "yes"
+	set description "Runs a number of items in sequence"
+	run present_decision always
+	run decision always
+	run communicate_decision always
+	run update_payout always
+	run feedback always
+	run reassign always
+	run logger always
+
+define inline_script update_payout
+	set description "Executes Python code"
+	___run__
+	if var.response_decision == "a":
+		if var.partner01_response_decision == "a":
+			var.payout += 100
+		else:
+			var.payout += 0
+	else:
+		if var.partner01_response_decision == "a":
+			var.payout += 200
+		else:
+			var.payout += 50
+	__end__
+	set _prepare ""
+
+define psynteract_await wait_for_instructions
+	set waiting_message "waiting for other participants..."
+	set display_message "yes"
+	set description "Wait for other clients."
+	set additional_wait 1000
+
