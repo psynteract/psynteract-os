@@ -47,6 +47,11 @@ controls:
     tooltip: "Specify the number of groupings needed."
 -
     type: "checkbox"
+    var: "ghosts"
+    label: "Enable ghost mode for excess clients"
+    tooltip: "Allow excess clients to inherit partners of other clients and receive the same input without affecting the interaction of their peers."
+-
+    type: "checkbox"
     var: "identical_rseed"
     label: "Identical random seed for all clients within the same session"
     tooltip: "Select to use identical random seed for all clients in one session."

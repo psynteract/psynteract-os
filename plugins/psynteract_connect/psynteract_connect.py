@@ -28,6 +28,7 @@ class psynteract_connect(item.item):
 		self.var.group_size = 2
 		self.var.roles = ''
 		self.var.groupings_needed = 1
+		self.var.ghosts = 'no'
 		self.var.identical_rseed = 'no'
 		self.var.display_messages = 'yes'
 		self.var.offline = 'no'
@@ -57,8 +58,9 @@ class psynteract_connect(item.item):
 			design=self.var.design, group_size=self.var.group_size,
 			groupings_needed=self.var.groupings_needed,
 			roles=self._roles,
+			ghosts=self.var.ghosts=='yes',
 			initial_data={'os_status':{},'os_variables':{}},
-			offline=self.experiment.var.offline=='yes')
+			offline=self.var.offline=='yes')
 		
 		if self.identical_rseed == u'yes':
 			print 'Set random seed depending on psynteract session'
