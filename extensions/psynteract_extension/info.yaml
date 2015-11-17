@@ -10,4 +10,4 @@ menu:
   submenu: Psynteract
 tooltip: Install psynteract backend
 url: https://github.com/psynteract/psynteract-os
-version: 0.5.0
+version: 0.6.0
