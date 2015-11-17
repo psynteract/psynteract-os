@@ -19,7 +19,9 @@ class psynteract_reassign(item.item):
 		desc:
 			Resets plug-in to initial values.
 		"""
-		pass
+		
+		self.var.allow_rollover = 'yes'
+
 
 
 	def run(self):
@@ -27,7 +29,7 @@ class psynteract_reassign(item.item):
 		"""Runs the item."""
 		
 		if self.experiment.var.offline == 'no':
-			self.experiment._connection.reassign_grouping()
+			self.experiment._connection.reassign_grouping(self.var.allow_rollover=='yes')
 			self.experiment.var.current_role = self.experiment._connection.current_role
 
 

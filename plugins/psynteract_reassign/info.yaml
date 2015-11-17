@@ -5,7 +5,8 @@ url: "https://github.com/psynteract/psynteract-os"
 category: "Psynteract"
 date: "October 21, 2015"
 controls:
-- 
-	type: text
-    label: 'Assign client to next grouping.'
-    name: reassign_label
+-
+    type: "checkbox"
+    var: "allow_rollover"
+    label: "Allow rollover in case maximum number of groupings is exceeded"
+    tooltip: "Select to re-use pre-generated groupings in case maximum number of groupings is exceeded (recommended if using reassign in loop)."
