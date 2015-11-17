@@ -236,6 +236,7 @@ define psynteract_connect psynteract_connect
 	set identical_rseed "no"
 	set groupings_needed 1
 	set group_size 2
+	set ghosts "no"
 	set display_messages "yes"
 	set design "perfect_stranger"
 	set description "Setup connection with session."

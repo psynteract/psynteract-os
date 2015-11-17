@@ -97,13 +97,15 @@ define psynteract_connect psynteract_connect
 	set identical_rseed "no"
 	set groupings_needed 5
 	set group_size 2
+	set ghosts "yes"
 	set display_messages "yes"
 	set design "stranger"
 	set description "Setup connection with session."
 	set db_name "psynteract"
 
 define psynteract_reassign reassign
-	set description "Assign participant to next grouping."
+	set description "Assign client to next grouping."
+	set allow_rollover "yes"
 
 define loop repeat_rounds
 	set skip 0
@@ -125,8 +127,8 @@ define sequence trial
 	run communicate_decision always
 	run update_payout always
 	run feedback always
-	run reassign always
 	run logger always
+	run reassign always
 
 define inline_script update_payout
 	set description "Executes Python code"
