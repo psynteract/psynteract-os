@@ -74,7 +74,13 @@ class psynteract_connect(item.item):
 			message_canvas.show()
 		
 		self.experiment._connection.await(lambda doc: doc['status'] == 'running', check="session")
+		
+		self.experiment.var.own_id = self.experiment._connection._id
 		self.experiment.var.current_role = self.experiment._connection.current_role
+		self.experiment.var.current_grouping = self.experiment._connection.current_grouping
+		current_partners = self.experiment._connection.current_partners
+		for i,p in enumerate(current_partners):
+			self.experiment.var.set('partner{:02d}_id'.format(i+1),p)		
 		
 		if self.var.display_messages == 'yes':
 			self.experiment.clock.sleep(1000)

@@ -28,9 +28,13 @@ class psynteract_reassign(item.item):
 
 		"""Runs the item."""
 		
-		if self.experiment.var.offline == 'no':
-			self.experiment._connection.reassign_grouping(self.var.allow_rollover=='yes')
-			self.experiment.var.current_role = self.experiment._connection.current_role
+		self.experiment._connection.reassign_grouping(self.var.allow_rollover=='yes')
+		
+		self.experiment.var.current_role = self.experiment._connection.current_role
+		self.experiment.var.current_grouping = self.experiment._connection.current_grouping
+		current_partners = self.experiment._connection.current_partners
+		for i,p in enumerate(current_partners):
+			self.experiment.var.set('partner{:02d}_id'.format(i+1),p)		
 
 
 	def prepare(self):
