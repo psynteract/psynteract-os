@@ -1,0 +1,10 @@
+﻿description: Psynteract interface for OpenSesame
+version: 0.6.0
+author: "Felix Henninger & Pascal J. Kieslich"
+url: "https://github.com/psynteract/psynteract-os"
+category: "Psynteract"
+controls:
+- 
+	type: text
+    label: 'Send heartbeat to server.'
+    name: heartbeat_label
