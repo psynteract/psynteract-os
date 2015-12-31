@@ -1,6 +1,6 @@
 ---
 API: 2
-OpenSesame: 3.0.2
+OpenSesame: 3.0.4
 Platform: nt
 ---
 set width 1024
@@ -50,23 +50,11 @@ define form_multiple_choice accept_reject_decision
 	set advance_immediately "no"
 	set _theme "gray"
 
-define psynteract_await await_decision
-	set waiting_message ""
-	set display_message "no"
-	set description "Wait for other clients."
-	set additional_wait 0
-
 define psynteract_await await_instructions_finished
 	set waiting_message "Waiting for other participants..."
 	set display_message "yes"
 	set description "Wait for other clients."
 	set additional_wait 1000
-
-define psynteract_await await_proposal
-	set waiting_message ""
-	set display_message "no"
-	set description "Wait for other clients."
-	set additional_wait 0
 
 define loop check_decision
 	set skip 0
@@ -92,6 +80,24 @@ define loop check_proposal
 	set break_if "[proposal]!=no"
 	run proposal_decision
 
+define psynteract_communicate communicate_decision
+	set waiting_message ""
+	set own_var_as_test "yes"
+	set display_message "no"
+	set description "Push data to server, wait for responses of other clients, and get their data."
+	set custom_selection "proposal, decision"
+	set auto_detect_variables "no"
+	set additional_wait 0
+
+define psynteract_communicate communicate_proposal
+	set waiting_message ""
+	set own_var_as_test "yes"
+	set display_message "no"
+	set description "Push data to server, wait for responses of other clients, and get their data."
+	set custom_selection "proposal"
+	set auto_detect_variables "no"
+	set additional_wait 0
+
 define sequence experiment
 	set flush_keyboard "yes"
 	set description "Runs a number of items in sequence"
@@ -102,16 +108,12 @@ define sequence experiment
 	run check_proposal "[current_role]==proposer"
 	run wait_for_proposer "[current_role]==responder"
 	run logger always
-	run push_proposal always
-	run await_proposal always
-	run get_proposal always
+	run communicate_proposal always
 	run process_proposal always
 	run check_decision "[current_role]==responder"
 	run wait_for_responder "[current_role]==proposer"
 	run logger always
-	run push_decision always
-	run await_decision always
-	run get_decision always
+	run communicate_decision always
 	run process_decision always
 	run feedback always
 
@@ -121,14 +123,6 @@ define feedback feedback
 	set description "Provides feedback to the participant"
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==proposer" text="You receive: $[proposer_payout]<br />Your partner receives: $[responder_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==responder" text="You receive: $[responder_payout]<br />Your partner receives: $[proposer_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
-
-define psynteract_get get_decision
-	set own_var_as_test "yes"
-	set description "Get data from server."
-
-define psynteract_get get_proposal
-	set own_var_as_test "yes"
-	set description "Get data from server."
 
 define inline_script initialize_variables
 	set description "Executes Python code"
@@ -241,16 +235,6 @@ define psynteract_connect psynteract_connect
 	set design "perfect_stranger"
 	set description "Setup connection with session."
 	set db_name "psynteract"
-
-define psynteract_push push_decision
-	set description "Push data to server."
-	set custom_selection "proposal, decision"
-	set auto_detect_variables "no"
-
-define psynteract_push push_proposal
-	set description "Push data to server."
-	set custom_selection "proposal"
-	set auto_detect_variables "no"
 
 define sketchpad wait_for_proposer
 	set duration 0

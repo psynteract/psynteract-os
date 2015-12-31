@@ -1,6 +1,6 @@
 ---
 API: 2
-OpenSesame: 3.0.2
+OpenSesame: 3.0.4
 Platform: nt
 ---
 set width 1024
@@ -50,70 +50,51 @@ define form_multiple_choice accept_reject_decision
 	set advance_immediately "no"
 	set _theme "gray"
 
+define psynteract_await await_decision
+	set waiting_message ""
+	set display_message "no"
+	set description "Wait for other clients."
+	set additional_wait 0
+
 define psynteract_await await_instructions_finished
 	set waiting_message "Waiting for other participants..."
 	set display_message "yes"
 	set description "Wait for other clients."
 	set additional_wait 1000
 
-define loop check_decision
-	set skip 0
-	set repeat 100
-	set order "random"
-	set offset "no"
-	set item "accept_reject_decision"
-	set description "Repeatedly runs another item"
-	set cycles 1
-	set column_order ""
-	set break_if "[decision]!=no"
-	run accept_reject_decision
-
-define loop check_proposal
-	set skip 0
-	set repeat 100
-	set order "random"
-	set offset "no"
-	set item "proposal_decision"
-	set description "Repeatedly runs another item"
-	set cycles 1
-	set column_order ""
-	set break_if "[proposal]!=no"
-	run proposal_decision
-
-define psynteract_communicate communicate_decision
+define psynteract_await await_proposal
 	set waiting_message ""
-	set own_var_as_test "yes"
 	set display_message "no"
-	set description "Push data to server, wait for responses of other clients, and get their data."
-	set custom_selection "proposal, decision"
-	set auto_detect_variables "no"
+	set description "Wait for other clients."
 	set additional_wait 0
 
-define psynteract_communicate communicate_proposal
-	set waiting_message ""
-	set own_var_as_test "yes"
-	set display_message "no"
-	set description "Push data to server, wait for responses of other clients, and get their data."
-	set custom_selection "proposal"
-	set auto_detect_variables "no"
-	set additional_wait 0
+define notepad description
+	__note__
+	This is the minimal version of the ultimatum game used in the article to demonstrate the basic features of the psynteract plug-ins.
+	Note that you will probably want to use the slightly extended version called 'ultimatum_game.os.exp' which is more robust and uses the communicate items (instead of a combination of push, await, and get - as in the current experiment).
+	__end__
+	set description "A simple notepad to document your experiment. This plug-in does nothing."
 
 define sequence experiment
 	set flush_keyboard "yes"
 	set description "Runs a number of items in sequence"
+	run description always
 	run psynteract_connect always
-	run initialize_variables always
 	run instructions always
 	run await_instructions_finished always
-	run check_proposal "[current_role]==proposer"
+	run proposal_decision "[current_role]==proposer"
 	run wait_for_proposer "[current_role]==responder"
 	run logger always
-	run communicate_proposal always
+	run push_proposal always
+	run await_proposal always
+	run get_proposal always
 	run process_proposal always
-	run check_decision "[current_role]==responder"
+	run accept_reject_decision "[current_role]==responder"
 	run wait_for_responder "[current_role]==proposer"
 	run logger always
-	run communicate_decision always
+	run push_decision always
+	run await_decision always
+	run get_decision always
 	run process_decision always
 	run feedback always
 
@@ -124,18 +105,13 @@ define feedback feedback
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==proposer" text="You receive: $[proposer_payout]<br />Your partner receives: $[responder_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==responder" text="You receive: $[responder_payout]<br />Your partner receives: $[proposer_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
 
-define inline_script initialize_variables
-	set description "Executes Python code"
-	___run__
-	# Set variables to default values for missing response
-	# so they can be checked in the loop
-	var.proposal = "no"
-	var.decision = "no"
-	
-	# Set role for test mode:
-	# var.current_role="proposer"
-	__end__
-	set _prepare ""
+define psynteract_get get_decision
+	set own_var_as_test "yes"
+	set description "Get data from server."
+
+define psynteract_get get_proposal
+	set own_var_as_test "yes"
+	set description "Get data from server."
 
 define form_text_display instructions
 	set timeout "infinite"
@@ -184,14 +160,16 @@ define inline_script process_decision
 define inline_script process_proposal
 	set description "Executes Python code"
 	___run__
-	if var.current_role=='responder':
-		var.proposal = var.partner01_proposal
+	if var.current_role=='proposer':
+		var.current_proposal = var.proposal
+	else:
+		var.current_proposal = var.partner01_proposal
 	
-	if var.proposal == '$8 for you, $2 for your partner':
+	if var.current_proposal == '$8 for you, $2 for your partner':
 		var.proposer_payout = 8
-	elif var.proposal == '$7 for you, $3 for your partner':
+	elif var.current_proposal == '$7 for you, $3 for your partner':
 		var.proposer_payout= 7
-	elif var.proposal == '$6 for you, $4 for your partner':
+	elif var.current_proposal == '$6 for you, $4 for your partner':
 		var.proposer_payout  = 6
 	else:
 		var.proposer_payout  = 5
@@ -226,7 +204,7 @@ define form_multiple_choice proposal_decision
 define psynteract_connect psynteract_connect
 	set server "http://localhost:5984/"
 	set roles "proposer, responder"
-	set offline "no"
+	set offline "yes"
 	set identical_rseed "no"
 	set groupings_needed 1
 	set group_size 2
@@ -235,6 +213,16 @@ define psynteract_connect psynteract_connect
 	set design "perfect_stranger"
 	set description "Setup connection with session."
 	set db_name "psynteract"
+
+define psynteract_push push_decision
+	set description "Push data to server."
+	set custom_selection "proposal, decision"
+	set auto_detect_variables "no"
+
+define psynteract_push push_proposal
+	set description "Push data to server."
+	set custom_selection "proposal"
+	set auto_detect_variables "no"
 
 define sketchpad wait_for_proposer
 	set duration 0
