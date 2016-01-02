@@ -70,8 +70,9 @@ define psynteract_await await_proposal
 
 define notepad description
 	__note__
-	This is the minimal version of the ultimatum game used in the article to demonstrate the basic features of the psynteract plug-ins.
-	Note that you will probably want to use the slightly extended version called 'ultimatum_game.os.exp' which is more robust and uses the communicate items (instead of a combination of push, await, and get - as in the current experiment).
+	This is the minimal version of the Ultimatum Game used in the psynteract article to demonstrate the basic features of the plug-ins.
+	
+	Note that you will probably want to use the slightly extended version called 'ultimatum_game.osexp' which is more robust and uses the communicate plug-in (instead of a combination of push, await, and get - as in the current version).
 	__end__
 	set description "A simple notepad to document your experiment. This plug-in does nothing."
 
@@ -204,7 +205,7 @@ define form_multiple_choice proposal_decision
 define psynteract_connect psynteract_connect
 	set server "http://localhost:5984/"
 	set roles "proposer, responder"
-	set offline "yes"
+	set offline "no"
 	set identical_rseed "no"
 	set groupings_needed 1
 	set group_size 2

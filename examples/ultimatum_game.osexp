@@ -98,9 +98,18 @@ define psynteract_communicate communicate_proposal
 	set auto_detect_variables "no"
 	set additional_wait 0
 
+define notepad description
+	__note__
+	This is an exemplary implementation of an Ultimatum Game using the psynteract plug-ins for OpenSesame.
+	
+	To enable offline test mode, check the corresponding box in the psynteract_connect plug-in and set a role in the initialize_variables inline_script by uncommenting the last line (var.current_role="proposer").
+	__end__
+	set description "A simple notepad to document your experiment. This plug-in does nothing."
+
 define sequence experiment
 	set flush_keyboard "yes"
 	set description "Runs a number of items in sequence"
+	run description always
 	run psynteract_connect always
 	run initialize_variables always
 	run instructions always

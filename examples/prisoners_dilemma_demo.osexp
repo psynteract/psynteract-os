@@ -1,6 +1,6 @@
 ---
 API: 2
-OpenSesame: 3.0.2
+OpenSesame: 3.0.4
 Platform: nt
 ---
 set width 1024
@@ -46,11 +46,17 @@ define keyboard_response decision
 
 define notepad description
 	__note__
-	This is just a rough demonstration
-	how a Prisoner's Dilemma Game could be implemented
-	in OpenSesame using the psynteract plug-ins.
+	This is just a rough demonstration how a Prisoner's Dilemma Game could be implemented in OpenSesame using the psynteract plug-ins.
+	
+	To enable offline test mode, check the corresponding box in the psynteract_connect plug-in.
 	__end__
 	set description "A simple notepad to document your experiment. This plug-in does nothing."
+
+define feedback display_payout
+	set reset_variables "yes"
+	set duration "keypress"
+	set description "Provides feedback to the participant"
+	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="End of experiment<br /><br />Final Payout: [payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
 
 define sequence experiment
 	set flush_keyboard "yes"
@@ -61,6 +67,7 @@ define sequence experiment
 	run wait_for_instructions always
 	run initialize_payout always
 	run repeat_rounds always
+	run display_payout always
 
 define feedback feedback
 	set reset_variables "yes"
@@ -78,7 +85,7 @@ define inline_script initialize_payout
 define sketchpad instructions
 	set duration "keypress"
 	set description "Displays stimuli"
-	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="In the following you will play 5 rounds.<br />Each round a new partner will be randomly assigned to you.<br /><br />Both you and your partner choose between two options: A and B.<br /><br />If you choose A and your partner chooses A, you both get 100.<br />If one person chooses A, the other B,<br />the person choosing A gets 0, the person choosing B gets 200.<br />If both choose B, both get 50.<br /><br />Press any key to continue." x=0 y=0 z_index=0
+	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="In the following you will play 3 rounds.<br />Each round a new partner will be randomly assigned to you.<br /><br />Both you and your partner choose between two options: A and B.<br /><br />If you choose A and your partner chooses A, you both get 100.<br />If one person chooses A, the other B,<br />the person choosing A gets 0, the person choosing B gets 200.<br />If both choose B, both get 50.<br /><br />Press any key to continue." x=0 y=0 z_index=0
 	draw textline center=1 color=black font_bold=yes font_family=sans font_italic=no font_size=18 html=yes show_if=always text=Instructions x=0 y=-256 z_index=0
 
 define logger logger
@@ -93,9 +100,10 @@ define sketchpad present_decision
 
 define psynteract_connect psynteract_connect
 	set server "http://localhost:5984/"
+	set roles ""
 	set offline "no"
 	set identical_rseed "no"
-	set groupings_needed 5
+	set groupings_needed 3
 	set group_size 2
 	set ghosts "yes"
 	set display_messages "yes"
@@ -109,7 +117,7 @@ define psynteract_reassign reassign
 
 define loop repeat_rounds
 	set skip 0
-	set repeat 5
+	set repeat 3
 	set order "random"
 	set offset "no"
 	set item "trial"
@@ -127,8 +135,8 @@ define sequence trial
 	run communicate_decision always
 	run update_payout always
 	run feedback always
-	run logger always
 	run reassign always
+	run logger always
 
 define inline_script update_payout
 	set description "Executes Python code"
