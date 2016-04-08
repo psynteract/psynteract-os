@@ -1,13 +1,13 @@
-﻿author: Felix Henniner & Pascal J. Kieslich
-description: Install Psynteract backend
+﻿author: Felix Henninger & Pascal J. Kieslich
+description: Install psynteract control panel on server
 icon: insert-link
-label: Install psynteract
+label: Install control panel
 priority: -2
 menu:
   index: -1
   separator_after: false
   separator_before: false
   submenu: Psynteract
-tooltip: Install psynteract backend
+tooltip: Install psynteract control panel on server
 url: https://github.com/psynteract/psynteract-os
 version: 0.6.0
