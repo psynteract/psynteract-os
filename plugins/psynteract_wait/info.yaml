@@ -24,4 +24,4 @@ controls:
     min_val: 0
     max_val: 60000
     suffix: " ms"
-    tooltip: "Specify additional time that is waited after the last client has reached the current await item."
+    tooltip: "Specify additional time that is waited after the last client has reached the current wait item."
