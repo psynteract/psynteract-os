@@ -73,7 +73,7 @@ class psynteract_connect(item.item):
 			message_canvas.text('Waiting for the session to start...')
 			message_canvas.show()
 		
-		self.experiment._connection.await(lambda doc: doc['status'] == 'running', check="session")
+		self.experiment._connection.wait(lambda doc: doc['status'] == 'running', check="session")
 		
 		self.experiment.var.own_id = self.experiment._connection._id
 		self.experiment.var.current_role = self.experiment._connection.current_role

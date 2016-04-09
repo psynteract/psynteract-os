@@ -51,15 +51,15 @@ class psynteract_communicate(item.item):
 		self.experiment._connection.doc['data']['os_variables'] = os_variables
 				
 		
-		# await
+		# wait
 		
-		current_await = self.name
+		current_wait = self.name
 		if self.name in self.experiment._connection.doc['data']['os_status']:
-			self.experiment._connection.doc['data']['os_status'][current_await]+=1
+			self.experiment._connection.doc['data']['os_status'][current_wait]+=1
 		else:
-			self.experiment._connection.doc['data']['os_status'][current_await]=1
+			self.experiment._connection.doc['data']['os_status'][current_wait]=1
 		
-		current_status = self.experiment._connection.doc['data']['os_status'][current_await]
+		current_status = self.experiment._connection.doc['data']['os_status'][current_wait]
 		
 		if self.var.display_message == 'yes':
 			from openexp.canvas import canvas
@@ -72,13 +72,13 @@ class psynteract_communicate(item.item):
 		
 			self.experiment._connection.push()
 
-			def check_awaits(doc):
+			def check_waits(doc):
 				check = False
-				if current_await in doc['data']['os_status']:
-					check = doc['data']['os_status'][current_await]>=current_status
+				if current_wait in doc['data']['os_status']:
+					check = doc['data']['os_status'][current_wait]>=current_status
 				return check
 				
-			self.experiment._connection.await(check_awaits)
+			self.experiment._connection.wait(check_waits)
 		
 		
 		# push data to server
