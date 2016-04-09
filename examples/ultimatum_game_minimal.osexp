@@ -1,34 +1,35 @@
 ---
 API: 2
-OpenSesame: 3.0.4
+OpenSesame: 3.0.7
 Platform: nt
 ---
 set width 1024
-set uniform_coordinates "yes"
+set uniform_coordinates yes
 set title "New experiment"
-set subject_parity "even"
+set subject_parity even
 set subject_nr 0
-set start "experiment"
-set sampler_backend "legacy"
-set mouse_backend "xpyriment"
-set keyboard_backend "legacy"
+set start experiment
+set sampler_backend legacy
+set mouse_backend xpyriment
+set keyboard_backend legacy
 set height 768
-set foreground "black"
+set foreground black
 set font_size 18
-set font_italic "no"
-set font_family "sans"
-set font_bold "no"
+set font_italic no
+set font_family sans
+set font_bold no
+set experiment_path "C:/Users/Pascal/Documents/GitHub/psynteract-os/examples"
 set description "Default description"
-set coordinates "uniform"
+set coordinates uniform
 set compensation 0
-set color_backend "legacy"
-set clock_backend "legacy"
-set canvas_backend "xpyriment"
-set bidi "no"
-set background "white"
+set color_backend legacy
+set clock_backend legacy
+set canvas_backend xpyriment
+set bidi no
+set background white
 
 define form_multiple_choice accept_reject_decision
-	set timeout "infinite"
+	set timeout infinite
 	set spacing 10
 	__question__
 	Your partner proposes the following split:
@@ -42,84 +43,66 @@ define form_multiple_choice accept_reject_decision
 	reject
 	__end__
 	set margins "50;50;50;50"
-	set form_var "decision"
+	set form_var decision
 	set form_title "<span size=24>Proposal</span>"
 	set description "A simple multiple choice item"
-	set button_text "Ok"
-	set allow_multiple "no"
-	set advance_immediately "no"
-	set _theme "gray"
-
-define psynteract_await await_decision
-	set waiting_message ""
-	set display_message "no"
-	set description "Wait for other clients."
-	set additional_wait 0
-
-define psynteract_await await_instructions_finished
-	set waiting_message "Waiting for other participants..."
-	set display_message "yes"
-	set description "Wait for other clients."
-	set additional_wait 1000
-
-define psynteract_await await_proposal
-	set waiting_message ""
-	set display_message "no"
-	set description "Wait for other clients."
-	set additional_wait 0
+	set button_text Ok
+	set allow_multiple no
+	set advance_immediately no
+	set _theme gray
 
 define notepad description
 	__note__
 	This is the minimal version of the Ultimatum Game used in the psynteract article to demonstrate the basic features of the plug-ins.
 	
-	Note that you will probably want to use the slightly extended version called 'ultimatum_game.osexp' which is more robust and uses the communicate plug-in (instead of a combination of push, await, and get - as in the current version).
+	Note that you will probably want to use the slightly extended version called 'ultimatum_game.osexp' which is more robust and uses the communicate plug-in (instead of a combination of push, wait, and get - as in the current version).
 	__end__
 	set description "A simple notepad to document your experiment. This plug-in does nothing."
 
 define sequence experiment
-	set flush_keyboard "yes"
+	set flush_keyboard yes
 	set description "Runs a number of items in sequence"
 	run description always
 	run psynteract_connect always
 	run instructions always
-	run await_instructions_finished always
+	run wait_instructions_finished always
 	run proposal_decision "[current_role]==proposer"
 	run wait_for_proposer "[current_role]==responder"
 	run logger always
 	run push_proposal always
-	run await_proposal always
+	run wait_proposal always
 	run get_proposal always
 	run process_proposal always
 	run accept_reject_decision "[current_role]==responder"
 	run wait_for_responder "[current_role]==proposer"
 	run logger always
 	run push_decision always
-	run await_decision always
+	run wait_decision always
 	run get_decision always
 	run process_decision always
 	run feedback always
 
 define feedback feedback
-	set reset_variables "yes"
-	set duration "keypress"
+	set reset_variables yes
+	set duration keypress
 	set description "Provides feedback to the participant"
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==proposer" text="You receive: $[proposer_payout]<br />Your partner receives: $[responder_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==responder" text="You receive: $[responder_payout]<br />Your partner receives: $[proposer_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
 
 define psynteract_get get_decision
-	set own_var_as_test "yes"
+	set own_var_as_test yes
 	set description "Get data from server."
 
 define psynteract_get get_proposal
-	set own_var_as_test "yes"
+	set own_var_as_test yes
 	set description "Get data from server."
 
 define form_text_display instructions
-	set timeout "infinite"
+	set timeout infinite
 	set spacing 10
 	set rows "1;4;1"
-	set only_render "no"
-	set ok_text "Ok"
+	set only_render no
+	set ok_text Ok
 	set margins "50;50;50;50"
 	set form_title "<span size=24>Instructions</span>"
 	__form_text__
@@ -136,7 +119,7 @@ define form_text_display instructions
 	__end__
 	set description "A simple text display form"
 	set cols "1;1;1"
-	set _theme "gray"
+	set _theme gray
 	widget 0 0 3 1 label text="[form_title]"
 	widget 0 1 3 1 label center=no text="[form_text]"
 	widget 1 2 1 1 button text="[ok_text]"
@@ -144,7 +127,7 @@ define form_text_display instructions
 
 define logger logger
 	set description "Logs experimental data"
-	set auto_log "yes"
+	set auto_log yes
 
 define inline_script process_decision
 	set description "Executes Python code"
@@ -180,7 +163,7 @@ define inline_script process_proposal
 	set _prepare ""
 
 define form_multiple_choice proposal_decision
-	set timeout "infinite"
+	set timeout infinite
 	set spacing 10
 	__question__
 	You are in the role of the proposer.
@@ -194,36 +177,41 @@ define form_multiple_choice proposal_decision
 	$8 for you, $2 for your partner
 	__end__
 	set margins "50;50;50;50"
-	set form_var "proposal"
+	set form_var proposal
 	set form_title "<span size=24>Proposal</span>"
 	set description "A simple multiple choice item"
-	set button_text "Ok"
-	set allow_multiple "no"
-	set advance_immediately "no"
-	set _theme "gray"
+	set button_text Ok
+	set allow_multiple no
+	set advance_immediately no
+	set _theme gray
 
 define psynteract_connect psynteract_connect
 	set server "http://localhost:5984/"
 	set roles "proposer, responder"
-	set offline "no"
-	set identical_rseed "no"
+	set offline no
+	set identical_rseed no
 	set groupings_needed 1
 	set group_size 2
-	set ghosts "no"
-	set display_messages "yes"
-	set design "perfect_stranger"
+	set ghosts no
+	set display_messages yes
+	set design perfect_stranger
 	set description "Setup connection with session."
-	set db_name "psynteract"
+	set db_name psynteract
 
 define psynteract_push push_decision
 	set description "Push data to server."
 	set custom_selection "proposal, decision"
-	set auto_detect_variables "no"
+	set auto_detect_variables no
 
 define psynteract_push push_proposal
 	set description "Push data to server."
-	set custom_selection "proposal"
-	set auto_detect_variables "no"
+	set custom_selection proposal
+	set auto_detect_variables no
+
+define psynteract_wait wait_decision
+	set display_message no
+	set description "Wait for other clients."
+	set additional_wait 0
 
 define sketchpad wait_for_proposer
 	set duration 0
@@ -234,4 +222,15 @@ define sketchpad wait_for_responder
 	set duration 0
 	set description "Displays stimuli"
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if=always text="Please wait until your partner has decided whether he/she accepts your proposal." x=0 y=0 z_index=0
+
+define psynteract_wait wait_instructions_finished
+	set waiting_message "Waiting for other participants..."
+	set display_message yes
+	set description "Wait for other clients."
+	set additional_wait 1000
+
+define psynteract_wait wait_proposal
+	set display_message no
+	set description "Wait for other clients."
+	set additional_wait 0
 
