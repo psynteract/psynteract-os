@@ -17,3 +17,9 @@ controls:
     name: "custom_variables_widget"
     tooltip: "Specify which experimental variables should be pushed to the session (each variable name separated by a comma)."
 	min_width: 200
+-
+    type: "checkbox"
+    var: "heartbeat_only"
+    label: "Only send hearbeat"
+	name: "heartbeat_only_widget"
+    tooltip: "Only send heartbeat to server without changing shared data."

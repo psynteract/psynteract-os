@@ -9,7 +9,7 @@ from libqtopensesame.misc import _
 
 class psynteract_push(item.item):
 	"""Push data to server."""
-	
+
 	initial_view = 'controls'
 	description = 'Push data to server.'
 
@@ -22,28 +22,31 @@ class psynteract_push(item.item):
 
 		self.var.auto_detect_variables = 'yes'
 		self.var.custom_selection = ''
-		
+		self.var.heartbeat_only = 'no'
+
 	def run(self):
 
 		"""Runs the item."""
-		
-		if self.var.auto_detect_variables == u'yes':
-			os_variables = dict(self.experiment.var.items())
-		
-		else:
-			if self.var.custom_selection=='':
-				os_variables = None
-			
+
+		if self.var.heartbeat_only == u'no':
+
+			if self.var.auto_detect_variables == u'yes':
+				os_variables = dict(self.experiment.var.items())
+
 			else:
-				selected_keys = self.custom_selection.replace(',', ' ')
-				selected_keys = selected_keys.split()
-				for var in selected_keys:
-					if not var in self.experiment.var.vars():
-						print('Custom variable "'+var+'" not found in experimental variables.')
-				os_variables = dict((k, v) for k, v in self.experiment.var.items() if k in selected_keys)
-			
-		self.experiment._connection.doc['data']['os_variables'] = os_variables
-				
+				if self.var.custom_selection=='':
+					os_variables = None
+
+				else:
+					selected_keys = self.custom_selection.replace(',', ' ')
+					selected_keys = selected_keys.split()
+					for var in selected_keys:
+						if not var in self.experiment.var.vars():
+							print('Custom variable "'+var+'" not found in experimental variables.')
+					os_variables = dict((k, v) for k, v in self.experiment.var.items() if k in selected_keys)
+
+			self.experiment._connection.doc['data']['os_variables'] = os_variables
+
 		if self.experiment.offline == 'no':
 			self.experiment._connection.push()
 
@@ -57,9 +60,9 @@ class psynteract_push(item.item):
 
 
 class qtpsynteract_push(psynteract_push, qtautoplugin):
-	
+
 	def __init__(self, name, experiment, script=None):
-		
+
 		psynteract_push.__init__(self, name, experiment, script)
 		qtautoplugin.__init__(self, __file__)
 		self.custom_interactions()
@@ -88,6 +91,6 @@ class qtpsynteract_push(psynteract_push, qtautoplugin):
 	def custom_interactions(self):
 
 		"""Activates the relevant controls and adjusts tooltips."""
-		
-		self.custom_variables_widget.setEnabled(self.var.auto_detect_variables=='no')
-	
+
+		self.auto_detect_widget.setEnabled(self.var.heartbeat_only=='no')
+		self.custom_variables_widget.setEnabled(self.var.auto_detect_variables=='no' and self.var.heartbeat_only=='no')
