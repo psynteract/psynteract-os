@@ -9,9 +9,11 @@ The documentation of the plug-ins can be found in its [own repository]
 
 ## General information
 
-The psynteract-os plug-ins are developed by Felix Henninger and Pascal Kieslich.
-They are published under the [GNU General Public License (version 3)](LICENSE).
+The psynteract-os plug-ins are developed jointly by Pascal Kieslich and Felix
+Henninger, with a focus on the OpenSesame integration and the underlying Python
+library and backend, respectively.
 
+They are published under the [GNU General Public License (version 3)](LICENSE).
 
 ## Installation
 
