@@ -80,6 +80,7 @@ define sequence experiment
 	run wait_decision always
 	run get_decision always
 	run process_decision always
+	run logger always
 	run feedback always
 
 define feedback feedback
@@ -199,16 +200,19 @@ define psynteract_connect psynteract_connect
 	set db_name psynteract
 
 define psynteract_push push_decision
+	set heartbeat_only no
 	set description "Push data to server."
 	set custom_selection "proposal, decision"
 	set auto_detect_variables no
 
 define psynteract_push push_proposal
+	set heartbeat_only no
 	set description "Push data to server."
 	set custom_selection proposal
 	set auto_detect_variables no
 
 define psynteract_wait wait_decision
+	set waiting_message ""
 	set display_message no
 	set description "Wait for other clients."
 	set additional_wait 0
@@ -230,6 +234,7 @@ define psynteract_wait wait_instructions_finished
 	set additional_wait 1000
 
 define psynteract_wait wait_proposal
+	set waiting_message ""
 	set display_message no
 	set description "Wait for other clients."
 	set additional_wait 0

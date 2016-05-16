@@ -18,7 +18,7 @@ set font_size 18
 set font_italic no
 set font_family sans
 set font_bold no
-set experiment_path "C:/Users/Pascal/Documents/GitHub/psynteract-os/examples"
+set experiment_path "C:\\Users\\Pascal\\Documents\\GitHub\\psynteract-os\\examples"
 set description "Default description"
 set coordinates uniform
 set compensation 0
@@ -119,6 +119,7 @@ define sequence experiment
 	run logger always
 	run communicate_decision always
 	run process_decision always
+	run logger always
 	run feedback always
 
 define feedback feedback
