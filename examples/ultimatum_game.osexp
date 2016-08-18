@@ -1,6 +1,6 @@
 ---
 API: 2
-OpenSesame: 3.0.7
+OpenSesame: 3.1.2
 Platform: nt
 ---
 set width 1024
@@ -9,16 +9,25 @@ set title "New experiment"
 set subject_parity even
 set subject_nr 0
 set start experiment
+set sound_sample_size -16
+set sound_freq 48000
+set sound_channels 2
+set sound_buf_size 1024
 set sampler_backend legacy
+set round_decimals 2
 set mouse_backend xpyriment
 set keyboard_backend legacy
 set height 768
+set fullscreen no
+set form_clicks no
 set foreground black
+set font_underline no
 set font_size 18
 set font_italic no
 set font_family sans
 set font_bold no
 set experiment_path "C:\\Users\\Pascal\\Documents\\GitHub\\psynteract-os\\examples"
+set disable_garbage_collection yes
 set description "Default description"
 set coordinates uniform
 set compensation 0
@@ -52,6 +61,8 @@ define form_multiple_choice accept_reject_decision
 	set _theme gray
 
 define loop check_decision
+	set source_file ""
+	set source table
 	set skip 0
 	set repeat 100
 	set order random
@@ -59,11 +70,16 @@ define loop check_decision
 	set item accept_reject_decision
 	set description "Repeatedly runs another item"
 	set cycles 1
+	set continuous no
 	set column_order ""
+	set break_if_on_first yes
 	set break_if "[decision]!=no"
+	setcycle 0 empty_column ""
 	run accept_reject_decision
 
 define loop check_proposal
+	set source_file ""
+	set source table
 	set skip 0
 	set repeat 100
 	set order random
@@ -71,8 +87,11 @@ define loop check_proposal
 	set item proposal_decision
 	set description "Repeatedly runs another item"
 	set cycles 1
+	set continuous no
 	set column_order ""
+	set break_if_on_first yes
 	set break_if "[proposal]!=no"
+	setcycle 0 empty_column ""
 	run proposal_decision
 
 define psynteract_communicate communicate_decision
