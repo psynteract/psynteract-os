@@ -1,5 +1,5 @@
 ﻿description: Psynteract interface for OpenSesame
-version: 0.7.0
+version: 0.7.1
 author: "Felix Henninger & Pascal J. Kieslich"
 url: "https://github.com/psynteract/psynteract-os"
 category: "Psynteract"
@@ -8,7 +8,7 @@ controls:
     type: "checkbox"
     var: "auto_detect_variables"
     label: "Push all variables"
-	name: "auto_detect_widget"
+    name: "auto_detect_widget"
     tooltip: "Select to automatically push all experimental variables to the session."
 -
     type: "line_edit"
@@ -16,10 +16,10 @@ controls:
     label: "Custom variable selection:"
     name: "custom_variables_widget"
     tooltip: "Specify which experimental variables should be pushed to the session (each variable name separated by a comma)."
-	min_width: 200
+    min_width: 500
 -
     type: "checkbox"
     var: "heartbeat_only"
     label: "Only send hearbeat"
-	name: "heartbeat_only_widget"
+    name: "heartbeat_only_widget"
     tooltip: "Only send heartbeat to server without changing shared data."

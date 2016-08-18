@@ -1,5 +1,5 @@
 ﻿description: Psynteract interface for OpenSesame
-version: 0.7.0
+version: 0.7.1
 author: "Felix Henninger & Pascal J. Kieslich"
 url: "https://github.com/psynteract/psynteract-os"
 category: "Psynteract"
@@ -9,12 +9,13 @@ controls:
     var: "server"
     label: "Psynteract server:"
     tooltip: "Specify the URL of the server (including user & password)."
-    min_width: 200
+    min_width: 500
 -
     type: "line_edit"
     var: "db_name"
     label: "Database:"
     tooltip: "Specify the name of the database containing the psynteract backend."
+    min_width: 500
 -
     type: "combobox"
     var: "design"
@@ -36,6 +37,7 @@ controls:
     var: "roles"
     label: "Roles:"
     tooltip: "Specify the roles in the group (separated by comma) - one for each group member. Leave empty if there are no roles."
+    min_width: 500
 -
     type: "spinbox"
     var: "groupings_needed"

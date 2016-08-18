@@ -1,5 +1,5 @@
 ﻿description: Psynteract interface for OpenSesame
-version: 0.7.0
+version: 0.7.1
 author: "Felix Henninger & Pascal J. Kieslich"
 url: "https://github.com/psynteract/psynteract-os"
 category: "Psynteract"
@@ -8,7 +8,7 @@ controls:
     type: "checkbox"
     var: "auto_detect_variables"
     label: "Push all variables"
-	name: "auto_detect_widget"
+    name: "auto_detect_widget"
     tooltip: "Select to automatically push all experimental variables to the session."
 -
     type: "line_edit"
@@ -16,20 +16,20 @@ controls:
     label: "Custom variable selection:"
     name: "custom_variables_widget"
     tooltip: "Specify which experimental variables should be pushed to the session (each variable name separated by a comma)."
-	min_width: 200
+    min_width: 500
 -
     type: "checkbox"
     var: "display_message"
-	name: "display_message_widget"
+    name: "display_message_widget"
     label: "Display message while waiting for the other clients"
     tooltip: "Select to display custom message while waiting for the other clients."
 -
     type: "line_edit"
     var: "waiting_message"
-	name: "waiting_message_widget"
+    name: "waiting_message_widget"
     label: "Waiting message:"
     tooltip: "Specify the message that should be displayed while waiting for the other clients."
-	min_width: 200
+    min_width: 500
 -
     type: "spinbox"
     var: "additional_wait"
