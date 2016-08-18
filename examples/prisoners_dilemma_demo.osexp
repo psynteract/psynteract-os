@@ -109,12 +109,12 @@ define sketchpad present_decision
 	draw textline center=1 color=black font_bold=yes font_family=sans font_italic=no font_size=18 html=yes show_if=always text=Choice x=0 y=-256 z_index=0
 
 define psynteract_connect psynteract_connect
-	set server "http://localhost:5984/"
+	set server "http://server.example:5984/"
 	set offline no
 	set identical_rseed no
 	set groupings_needed 3
 	set group_size 2
-	set ghosts yes
+	set ghosts no
 	set display_messages yes
 	set design stranger
 	set description "Setup connection with session."

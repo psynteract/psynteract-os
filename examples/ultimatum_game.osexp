@@ -248,7 +248,7 @@ define form_multiple_choice proposal_decision
 	set _theme gray
 
 define psynteract_connect psynteract_connect
-	set server "http://localhost:5984/"
+	set server "http://server.example:5984/"
 	set roles "proposer, responder"
 	set offline no
 	set identical_rseed no
@@ -256,7 +256,7 @@ define psynteract_connect psynteract_connect
 	set group_size 2
 	set ghosts no
 	set display_messages yes
-	set design perfect_stranger
+	set design stranger
 	set description "Setup connection with session."
 	set db_name psynteract
 

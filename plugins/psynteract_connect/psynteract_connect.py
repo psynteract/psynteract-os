@@ -22,9 +22,9 @@ class psynteract_connect(item.item):
 			Resets plug-in to initial values.
 		"""
 
-		self.var.server = ''
+		self.var.server = 'http://server.example:5984/'
 		self.var.db_name = 'psynteract'
-		self.var.design = 'perfect_stranger'
+		self.var.design = 'stranger'
 		self.var.group_size = 2
 		self.var.roles = ''
 		self.var.groupings_needed = 1
