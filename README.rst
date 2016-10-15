@@ -3,12 +3,11 @@ Psynteract OpenSesame integration
 
 **Easily build real-time interactive experiments with OpenSesame.**
 
-This repository provides the OpenSesame integration of the *Psynteract*
-libraries. The documentation of the plug-ins can be found in its [own
-repository] (https://github.com/psynteract/psynteract-docs/).
+This repository provides the OpenSesame integration of the *psynteract*
+libraries. The documentation of the plugins can be found in its `own
+repository <https://github.com/psynteract/psynteract-docs>`__.
 
-General information
--------------------
+----
 
 The psynteract-os plug-ins are developed jointly by Pascal Kieslich and
 Felix Henninger, with a focus on the OpenSesame integration and the
@@ -20,11 +19,63 @@ They are published under the `GNU General Public License (version
 Installation
 ------------
 
-To install the plug-ins, please `download the latest release
-<https://github.com/psynteract/psynteract-os/releases>`__. More
-information on installing the plug-ins, can be found in the
-[documentation]
-(https://github.com/psynteract/psynteract-docs/blob/master/installation.md).
+**Latest stable version**
+
+To install the latest release, please run the following commands in OpenSesame's
+`debug window <http://osdoc.cogsci.nl/manual/interface/#the-debug-window>`__:
+
+.. code-block:: python
+
+    import pip
+    pip.main(['install', '--process-dependency-links',
+      'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
+
+You'll need to restart OpenSesame after the installation for the plug-ins and
+extension to work.
+
+If the installation fails due to missing write access, you may have to run
+OpenSesame with administrator privileges for the installation (on Windows,
+right-click the OpenSesame program icon and select `Run as Administrator
+<https://technet.microsoft.com/en-us/library/cc732200.aspx>`__).
+
+The `installation of plug-ins
+<http://osdoc.cogsci.nl/manual/environment/#installing-plugins-and-extensions>`__
+is covered in more detail in the OpenSesame documentation, which also covers
+alternate methods. To install the plug-ins manually, please download the archive
+attached to the `latest release
+<https://github.com/psynteract/psynteract-os/releases/latest>`__. In this case,
+you'll need to install `psynteract-py
+<https://github.com/psynteract/psynteract-py>`__ and its dependencies manually.
+
+`Release notes for the latest version
+<https://github.com/psynteract/psynteract-os/releases/latest>`__ are available,
+as for all `previous releases
+<https://github.com/psynteract/psynteract-os/releases>`__.
+
+**Development version**
+
+To install the latest development version, please follow the above instructions,
+replacing the command with the following:
+
+.. code-block:: python
+
+    import pip
+    pip.main(['install', '--process-dependency-links',
+      'https://github.com/psynteract/psynteract-os/archive/master.zip'])
+
+Citation
+--------
+
+Please drop us a line if you've used the library: We sincerely love to hear
+from our users!
+
+If you use ``psynteract`` in your published research, we kindly ask that you
+cite the associated article as follows:
+
+    Henninger, F. & Kieslich, P. J. (in press). Psynteract: A flexible,
+    cross-platform, open framework for interactive experiments. *Behavior
+    Research Methods*. doi:`10.3758/s13428-016-0801-6
+    <https://dx.doi.org/10.3758/s13428-016-0801-6>`__
 
 Shoulders of giants
 -------------------
@@ -32,23 +83,28 @@ Shoulders of giants
 Psynteract depends heavily on several additional libraries that are
 included in the release archives, but not contained in this repository.
 In particular, we are indebted to the authors of and contributors to
-`*PyCouchDB* (written by Andrey Antukh) <https://pycouchdb.readthedocs.org/>`__
-and `*Requests* (by Kenneth Reitz and collaborators)
+`PyCouchDB (written by Andrey Antukh) <https://pycouchdb.readthedocs.org/>`__
+and `Requests (by Kenneth Reitz and collaborators)
 <http://python-requests.org/>`__. The OpenSesame integration also incorporates
 our own `Python library <https://github.com/psynteract/psynteract-py>`__. Of
 course, none of this would be possible without the excellent work of the
 `OpenSesame development team <http://osdoc.cogsci.nl/about/>`__ led by
-`Sebastiaan Mathôt <http://www.cogsci.nl/smathot>`__. In addition, this
-repository contains several icons from the `Faenza Icon Set (by Titheum)
-<http://tiheum.deviantart.com/art/Faenza-Icons-173323228>`__, which makes us
-look professional (please note that some icons have been modified). Further
-information regarding the vendorized libraries and their licenses can be found
-in the `notice </NOTICE.md>`__ file.
+`Sebastiaan Mathôt <http://www.cogsci.nl/smathot>`__.
+
+The icons for ``psynteract-os`` are based on the `Moka Icon Theme  (by Sam
+Hewitt) <https://snwh.org/moka>`__, and contain elements from the `Faenza Icon
+Set (by Titheum) <http://tiheum.deviantart.com/art/Faenza-Icons-173323228>`__,
+both of which make us look professional.
 
 Acknowledgments
 ---------------
 
-We thank Anja Humbs for her help in selecting the icons and testing the
-plug-ins. Besides, we thank the members of the Cognitive Psychology Lab
-at the University of Koblenz-Landau for their feedback when using the
-plug-ins.
+We would like to thank Anja Humbs at the University of Mannheim Chair of
+Experimental Psychology for her help in selecting the icons and testing the
+plug-ins, Luisa Horsten and Sina Klein at the University of Landau Cognition
+Lab, and Hosam Alqaderi and Susann Fiedler at the Max Planck Institute for
+Research on Collective Goods, Bonn, for testing the software and providing
+valuable feedback.
+
+This work was supported by the University of Mannheim’s Graduate School of
+Economic and Social Sciences, which is funded by the German Research Foundation.
