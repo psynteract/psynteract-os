@@ -57,8 +57,3 @@ docs/_build/
 
 # PyBuilder
 target/
-
-# Sketchy gulp-based build system
-build/
-node_modules
-release.zip
