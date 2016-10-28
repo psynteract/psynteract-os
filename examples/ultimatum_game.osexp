@@ -1,6 +1,6 @@
 ---
 API: 2
-OpenSesame: 3.1.2
+OpenSesame: 3.1.3
 Platform: nt
 ---
 set width 1024
@@ -72,7 +72,7 @@ define loop check_decision
 	set cycles 1
 	set continuous no
 	set column_order ""
-	set break_if_on_first yes
+	set break_if_on_first no
 	set break_if "[decision]!=no"
 	setcycle 0 empty_column ""
 	run accept_reject_decision
@@ -89,7 +89,7 @@ define loop check_proposal
 	set cycles 1
 	set continuous no
 	set column_order ""
-	set break_if_on_first yes
+	set break_if_on_first no
 	set break_if "[proposal]!=no"
 	setcycle 0 empty_column ""
 	run proposal_decision
@@ -115,8 +115,6 @@ define psynteract_communicate communicate_proposal
 define notepad description
 	__note__
 	This is an exemplary implementation of an Ultimatum Game using the psynteract plug-ins for OpenSesame.
-	
-	To enable offline test mode, check the corresponding box in the psynteract_connect plug-in and set a role in the initialize_variables inline_script by uncommenting the last line (var.current_role="proposer").
 	__end__
 	set description "A simple notepad to document your experiment. This plug-in does nothing."
 
@@ -125,7 +123,6 @@ define sequence experiment
 	set description "Runs a number of items in sequence"
 	run description always
 	run psynteract_connect always
-	run initialize_variables always
 	run instructions always
 	run wait_instructions_finished always
 	run check_proposal "[current_role]==proposer"
@@ -147,19 +144,6 @@ define feedback feedback
 	set description "Provides feedback to the participant"
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==proposer" text="You receive: $[proposer_payout]<br />Your partner receives: $[responder_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
 	draw textline center=1 color=black font_bold=no font_family=sans font_italic=no font_size=18 html=yes show_if="[current_role]==responder" text="You receive: $[responder_payout]<br />Your partner receives: $[proposer_payout]<br /><br />Press any key to exit" x=0 y=0 z_index=0
-
-define inline_script initialize_variables
-	set description "Executes Python code"
-	___run__
-	# Set variables to default values for missing response
-	# so they can be checked in the loop
-	var.proposal = "no"
-	var.decision = "no"
-	
-	# Set role for test mode:
-	# var.current_role="proposer"
-	__end__
-	set _prepare ""
 
 define form_text_display instructions
 	set timeout infinite
