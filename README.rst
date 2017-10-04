@@ -70,9 +70,9 @@ from our users!
 If you use ``psynteract`` in your published research, we kindly ask that you
 cite the associated article as follows:
 
-    Henninger, F., Kieslich, P. J., & Hilbig, B. E. (in press). Psynteract:
+    Henninger, F., Kieslich, P. J., & Hilbig, B. E. (2017). Psynteract:
     A flexible, cross-platform, open framework for interactive experiments.
-    *Behavior Research Methods*. doi:`10.3758/s13428-016-0801-6
+    *Behavior Research Methods, 49*(5), 1605-1614. doi:`10.3758/s13428-016-0801-6
     <https://dx.doi.org/10.3758/s13428-016-0801-6>`__
 
 Acknowledgments
