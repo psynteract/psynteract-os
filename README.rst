@@ -36,6 +36,14 @@ OpenSesame with administrator privileges for the installation (on Windows,
 right-click the OpenSesame program icon and select `Run as Administrator
 <https://technet.microsoft.com/en-us/library/cc732200.aspx>`__).
 
+If you are using a recent version of OpenSesame for Mac OS, you might need to change the installation command and replace it with the following command (as OpenSesame for Mac OS uses a newer version of the pip package):
+
+.. code-block:: python
+
+    import ._internal
+    pip._internal.main(['install', '--process-dependency-links',
+      'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
+
 The `installation of plugins
 <http://osdoc.cogsci.nl/manual/environment/#installing-plugins-and-extensions>`__
 is covered in more detail in the OpenSesame documentation, which also covers
