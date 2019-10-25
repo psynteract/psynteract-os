@@ -40,7 +40,7 @@ If you are using a recent version of OpenSesame for Mac OS, you might need to ch
 
 .. code-block:: python
 
-    import ._internal
+    import pip._internal
     pip._internal.main(['install', '--process-dependency-links',
       'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
 
