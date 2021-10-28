@@ -25,8 +25,7 @@ To install the latest release, please run the following commands in OpenSesame's
 .. code-block:: python
 
     import pip
-    pip.main(['install', '--process-dependency-links',
-      'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
+    pip.main(['install', 'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
 
 You'll need to restart OpenSesame after the installation for the plugins and
 extension to work.
@@ -41,8 +40,7 @@ If you are using a recent version of OpenSesame for Mac OS, you might need to ch
 .. code-block:: python
 
     import pip._internal
-    pip._internal.main(['install', '--process-dependency-links',
-      'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
+    pip._internal.main(['install', 'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
 
 The `installation of plugins
 <http://osdoc.cogsci.nl/manual/environment/#installing-plugins-and-extensions>`__
