@@ -83,12 +83,12 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'psynteract'
+        'psynteract' @ 'https://github.com/psynteract/psynteract-py/releases/download/v0.7.0/psynteract-0.7.0.tar.gz#egg=psynteract-0.7.0'
     ],
 
-    dependency_links = [
-        'https://github.com/psynteract/psynteract-py/releases/download/v0.7.0/psynteract-0.7.0.tar.gz#egg=psynteract-0.7.0'
-    ],
+    #dependency_links = [
+        
+    #],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
