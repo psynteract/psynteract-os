@@ -63,7 +63,7 @@ class psynteract_connect(item.item):
 			offline=self.var.offline=='yes')
 		
 		if self.identical_rseed == u'yes':
-			print 'Set random seed depending on psynteract session'
+			print('Set random seed depending on psynteract session')
 			import random
 			random.seed(self.experiment._connection.session)
 			
