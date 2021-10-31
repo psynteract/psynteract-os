@@ -17,6 +17,11 @@ Public License (version 3) <LICENSE>`__.
 Installation
 ------------
 
+Please select which version to install depending on which OpenSesame version you are using:
+
+* For OpenSesame versions up to 3.2.8, install the **latest stable version**
+* For OpenSesame versions 3.3.0 or later, install the **current development version**
+
 **Latest stable version**
 
 To install the latest release, please run the following commands in OpenSesame's
@@ -25,7 +30,8 @@ To install the latest release, please run the following commands in OpenSesame's
 .. code-block:: python
 
     import pip
-    pip.main(['install', 'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
+    pip.main(['install', '--process-dependency-links',
+      'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
 
 You'll need to restart OpenSesame after the installation for the plugins and
 extension to work.
@@ -40,8 +46,9 @@ If you are using a recent version of OpenSesame for Mac OS, you might need to ch
 .. code-block:: python
 
     import pip._internal
-    pip._internal.main(['install', 'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
-
+    pip._internal.main(['install', '--process-dependency-links',
+      'https://github.com/psynteract/psynteract-os/archive/stable.zip'])
+ 
 The `installation of plugins
 <http://osdoc.cogsci.nl/manual/environment/#installing-plugins-and-extensions>`__
 is covered in more detail in the OpenSesame documentation, which also covers
@@ -58,14 +65,12 @@ as for all `previous releases
 
 **Development version**
 
-To install the latest development version, please follow the above instructions,
-replacing the command with the following:
+To install the latest development version in OpenSesame 3.3.0 or later, please follow the above instructions, replacing the command with the following (which is still entered in OpenSesame's `debug window <http://osdoc.cogsci.nl/manual/interface/#the-debug-window>`__):
 
 .. code-block:: python
 
-    import pip
-    pip.main(['install', '--process-dependency-links',
-      'https://github.com/psynteract/psynteract-os/archive/master.zip'])
+    !pip install https://github.com/psynteract/psynteract-os/archive/master.zip
+
 
 Citation
 --------
