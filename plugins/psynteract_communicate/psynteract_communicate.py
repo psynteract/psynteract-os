@@ -118,6 +118,8 @@ class psynteract_communicate(item.item):
 
 class qtpsynteract_communicate(psynteract_communicate, qtautoplugin):
 	
+	lazy_init = False
+		
 	def __init__(self, name, experiment, script=None):
 		
 		psynteract_communicate.__init__(self, name, experiment, script)

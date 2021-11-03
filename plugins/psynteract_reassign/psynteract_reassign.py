@@ -46,6 +46,8 @@ class psynteract_reassign(item.item):
 
 class qtpsynteract_reassign(psynteract_reassign, qtautoplugin):
 	
+	lazy_init = False
+		
 	def __init__(self, name, experiment, script=None):
 		
 		psynteract_reassign.__init__(self, name, experiment, script)

@@ -95,6 +95,8 @@ class psynteract_connect(item.item):
 
 class qtpsynteract_connect(psynteract_connect, qtautoplugin):
 	
+	lazy_init = False
+		
 	def __init__(self, name, experiment, script=None):
 		
 		psynteract_connect.__init__(self, name, experiment, script)

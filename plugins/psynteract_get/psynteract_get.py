@@ -53,6 +53,8 @@ class psynteract_get(item.item):
 
 class qtpsynteract_get(psynteract_get, qtautoplugin):
 	
+	lazy_init = False
+		
 	def __init__(self, name, experiment, script=None):
 		
 		psynteract_get.__init__(self, name, experiment, script)

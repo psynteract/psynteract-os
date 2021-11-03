@@ -60,7 +60,9 @@ class psynteract_push(item.item):
 
 
 class qtpsynteract_push(psynteract_push, qtautoplugin):
-
+	
+	lazy_init = False
+	
 	def __init__(self, name, experiment, script=None):
 
 		psynteract_push.__init__(self, name, experiment, script)

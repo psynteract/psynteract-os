@@ -70,6 +70,8 @@ class psynteract_wait(item.item):
 
 class qtpsynteract_wait(psynteract_wait, qtautoplugin):
 	
+	lazy_init = False
+		
 	def __init__(self, name, experiment, script=None):
 		
 		psynteract_wait.__init__(self, name, experiment, script)
