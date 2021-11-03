@@ -10,4 +10,4 @@ menu:
   submenu: Psynteract
 tooltip: Install psynteract control panel on server
 url: https://github.com/psynteract/psynteract-os
-version: 0.8.0
+version: 0.9.0
